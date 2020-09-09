@@ -55,118 +55,116 @@ def isSubStringsNoCase(string , subString):
 
 
 def executeGit(command):
-    if(isSubStringsNoCase(command , "git")):
 
-        message = "no message"
+    message = "no message"
 
-        messageFrom = 0
+    messageFrom = 0
 
-        for i,j in enumerate(command):
-            if(j == "-"):
-                messageFrom = i
-                if(command[i+1] == "m"):
-                    message = command[i+3:]  
-                    break      
+    for i,j in enumerate(command):
+        if(j == "-"):
+            messageFrom = i
+            if(command[i+1] == "m"):
+                message = command[i+3:]  
+                break      
 
-        if(messageFrom == 0):
-            commandForCompare = command
-        else:
-            commandForCompare = command[:messageFrom]
+    if(messageFrom == 0):
+        commandForCompare = command
+    else:
+        commandForCompare = command[:messageFrom]
 
-        if((isSubStringsNoCase(commandForCompare , "log"))):
-            print("Generating logs ... , press q to quit , or press ENTER to see more\n\n")
-            os.system("git log --graph --oneline --all --decorate")
+    if((isSubStringsNoCase(commandForCompare , "log"))):
+        print("Generating logs ... , press q to quit , or press ENTER to see more\n\n")
+        os.system("git log --graph --oneline --all --decorate")
+        return True
+
+    
+    if(isSubStringsNoCase(commandForCompare , "commit")):
+
+        # initialising repo
+        try:
+            result = subprocess.check_output("git init", shell=True)
+        except Exception:
+            print("failed to git init")
             return True
+
+        if(not(result == b'')):
+            print(result)
+        print("\n\ninitialised repo..\n")
+
+
+        # adding
+        try:
+            result = subprocess.check_output("git add .", shell=True)
+        except Exception:
+            print("failed to git add .")
+            return True
+
+        if(not(result == b'')):
+            print(result)
+        print("\n\nadded to repo..\n")
 
         
-        if(isSubStringsNoCase(commandForCompare , "commit")):
+        # commiting
+        stringToPass = "git commit -m " + '"' + message + '"'
 
-            # initialising repo
-            try:
-                result = subprocess.check_output("git init", shell=True)
-            except Exception:
-                print("failed to git init")
-                return True
-
-            if(not(result == b'')):
-                print(result)
-            print("\n\ninitialised repo..\n")
-
-
-            # adding
-            try:
-                result = subprocess.check_output("git add .", shell=True)
-            except Exception:
-                print("failed to git add .")
-                return True
-
-            if(not(result == b'')):
-                print(result)
-            print("\n\nadded to repo..\n")
-
-            
-            # commiting
-            stringToPass = "git commit -m " + '"' + message + '"'
-
-            try:
-                result = subprocess.check_output(stringToPass, shell=True)
-            except Exception:
-                print("failed to git commit with message = {}".format(message))
-                return True
-                
-            if(not(result == b'')):
-                print(result)
-            print("\n\ncommited to repo..\n")
-
-            print("process completed (^_^)")
+        try:
+            result = subprocess.check_output(stringToPass, shell=True)
+        except Exception:
+            print("failed to git commit with message = {}".format(message))
             return True
             
-            
+        if(not(result == b'')):
+            print(result)
+        print("\n\ncommited to repo..\n")
 
-        elif(isSubStringsNoCase(commandForCompare , "all")):
-            
-            # adding
-            try:
-                result = subprocess.check_output("git add .", shell=True)
-            except Exception:
-                print("failed to git add .")
-                return True
+        print("process completed (^_^)")
+        return True
+        
+        
 
-            if(not(result == b'')):
-                print(result)
-            print("\n\nadded to repo..\n")
-
-            
-            # commiting
-            stringToPass = "git commit -m " + '"' + message + '"'
-
-            try:
-                result = subprocess.check_output(stringToPass, shell=True)
-            except Exception:
-                print("failed to git commit with message = {}".format(message))
-                return True
-                
-            if(not(result == b'')):
-                print(result)
-            print("\n\ncommited to repo..\n")
-            
-            #pushing
-            print("pushing to repo, make sure you are connected to internet ...\n\n")
-
-            try:
-                result = subprocess.check_output("git push", shell=True)
-            except Exception:
-                print("failed to git push")
-                return True
-
-            if(not(result == b'')):
-                print(result)
-            print("\n\npushed to repo..\n")
-
-
-            print("process completed (^_^)")
+    elif(isSubStringsNoCase(commandForCompare , "all")):
+        
+        # adding
+        try:
+            result = subprocess.check_output("git add .", shell=True)
+        except Exception:
+            print("failed to git add .")
             return True
 
-        return False
+        if(not(result == b'')):
+            print(result)
+        print("\n\nadded to repo..\n")
+
+        
+        # commiting
+        stringToPass = "git commit -m " + '"' + message + '"'
+
+        try:
+            result = subprocess.check_output(stringToPass, shell=True)
+        except Exception:
+            print("failed to git commit with message = {}".format(message))
+            return True
+            
+        if(not(result == b'')):
+            print(result)
+        print("\n\ncommited to repo..\n")
+        
+        #pushing
+        print("pushing to repo, make sure you are connected to internet ...\n\n")
+
+        try:
+            result = subprocess.check_output("git push", shell=True)
+        except Exception:
+            print("failed to git push")
+            return True
+
+        if(not(result == b'')):
+            print(result)
+        print("\n\npushed to repo..\n")
+
+
+        print("process completed (^_^)")
+        return True
 
     return False
+
