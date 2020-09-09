@@ -1,6 +1,7 @@
+print("\nexecuting ...\n\n")
+
 import sys
 import gitController
-
 
 commandListFromCmd = sys.argv
 
@@ -11,4 +12,8 @@ trimmedCommandListFromCmd = commandListFromCmd[1:]
 seperator = " "
 commandString = seperator.join(trimmedCommandListFromCmd)
 
-gitController.executeGit(commandString)
+
+if(gitController.executeGit(commandString)):
+    pass
+else:
+    print("\nNo command found")
