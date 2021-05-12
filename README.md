@@ -23,6 +23,3 @@ path (in system variable) -> folder add (windows)
 lets says their is a GITU folder in home dir then we have to move it to the roots bin folder recursevily - sudo cp -r GITU/* /bin/    (considering we were in the home dir)
 
 
-
-
-

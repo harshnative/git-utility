@@ -2,6 +2,8 @@ build/
 
 dist/
 
+gituTest.py
+
 __pycache__/
 
 myBuilds/
