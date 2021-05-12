@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['main.py'],
-             pathex=['Z:\\college\\projects\\github utility'],
+             pathex=['/media/veracrypt64/Projects/github utility'],
              binaries=[],
              datas=[],
              hiddenimports=[],
